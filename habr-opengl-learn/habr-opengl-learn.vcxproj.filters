@@ -13,8 +13,17 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Исходные файлы\1.4">
-      <UniqueIdentifier>{fe43a1df-5b1f-4e25-8dff-80d923db9337}</UniqueIdentifier>
+    <Filter Include="Файлы ресурсов\Shaders">
+      <UniqueIdentifier>{4334dcfe-ccc8-4f0a-a27c-e057dc20b9bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\Shaders\15">
+      <UniqueIdentifier>{87e86feb-ceda-4726-b524-a0e7948a70c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\Images">
+      <UniqueIdentifier>{bcd4a15f-a887-4da9-a1ef-09c44df355c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\Shaders\16">
+      <UniqueIdentifier>{48881f26-ab1c-4c80-b400-2bb4083f9a7f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -22,6 +31,18 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="HelloTriangle14.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="HelloShaders15.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="HelloTextures16.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialWithMesh.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,10 +56,48 @@
     <ClInclude Include="Common.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="HelloShaders15.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="HelloTextures16.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialWithMesh.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="habr-opengl-learn1.rc">
       <Filter>Файлы ресурсов</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader1.5-triangleWithColoredVertexShader.glsl">
+      <Filter>Файлы ресурсов\Shaders\15</Filter>
+    </None>
+    <None Include="shader1.5-coloredFragmentShader.glsl">
+      <Filter>Файлы ресурсов\Shaders\15</Filter>
+    </None>
+    <None Include="packages.config" />
+    <None Include="shader-16-vertexTexQuad.glsl">
+      <Filter>Файлы ресурсов\Shaders\16</Filter>
+    </None>
+    <None Include="shader-16-fragmentTexQuad.glsl">
+      <Filter>Файлы ресурсов\Shaders\16</Filter>
+    </None>
+    <None Include="shader-16-fragmentTexQuadMix.glsl">
+      <Filter>Файлы ресурсов\Shaders\16</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Images\container.jpg">
+      <Filter>Файлы ресурсов\Images</Filter>
+    </Image>
+    <Image Include="Resources\Images\awesomeface.png">
+      <Filter>Файлы ресурсов\Images</Filter>
+    </Image>
   </ItemGroup>
 </Project>

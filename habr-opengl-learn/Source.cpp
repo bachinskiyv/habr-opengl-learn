@@ -1,10 +1,17 @@
 #include "Common.h"
-#include "HelloTriangle14.h"
-
+#include "HelloTextures16.h"
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
+	}
+
+	if (key == GLFW_KEY_UP && action == GLFW_REPEAT) {
+		Lesson16::IncreaseMixAlpha();
+	}
+
+	if (key == GLFW_KEY_DOWN && action == GLFW_REPEAT) {
+		Lesson16::DecreaseMixAlpha();
 	}
 }
 
@@ -66,7 +73,7 @@ int main() {
 
 	glfwSetKeyCallback(window, key_callback); // bind close key
 
-	Lesson14::Begin();
+	Lesson16::Begin();
 
 	while(!glfwWindowShouldClose(window))
 	{
@@ -76,10 +83,12 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// команды отрисовки здесь
-		Lesson14::Update();
+		Lesson16::Update();
 
 		glfwSwapBuffers(window);
 	}
+
+	// @TODO: don't forget deallocate buffers
 
 	glfwTerminate();
 

@@ -13,14 +13,87 @@ const GLchar* FragmentShader14 = "#version 330 core\n"
 "color = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
 "}\n\0";
 
-const GLfloat triangleVertices[] = {
-	// 1st vertex
-	-0.5f, -0.5f, 0.0f,
-	// 2nd vertex
-	0.5f, -0.5f, 0.0f,
-	// 3rd vertex
-	0.0f, 0.5f, 0.0f
+static GLuint VAO;
+static GLuint EBO;
+
+
+static class SetupVertices {
+public:
+	virtual void DrawShape() = 0;
+	virtual void SetupVerticies() = 0;
 };
+
+static class SetupQuadVertices : public SetupVertices {
+protected:
+	const GLfloat quadVertices[12] = {
+		 0.5f,  0.5f, 0.0f,  // Верхний правый угол
+		 0.5f, -0.5f, 0.0f,  // Нижний правый угол
+		-0.5f, -0.5f, 0.0f,  // Нижний левый угол
+		-0.5f,  0.5f, 0.0f   // Верхний левый угол
+	};
+
+	const GLuint quadIndicies[6] = {
+		 0, 1, 3,   // Первый треугольник
+		 1, 2, 3    // Второй треугольник
+	};
+
+public:
+	virtual void DrawShape() override {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		/*
+			Первый аргумент описывает примитив, который мы хотим отрисовать, также как и в glDrawArrays.
+			Второй аргумент — это количество элементов, которое мы хотим отрисовать. Мы указали 6 индексов, поэтому мы передаем функции 6 вершин.
+			Третий аргумент — это тип данных индексов, в нашем случае — это GL_UNSIGNED_INT.
+			Последний аргумент позволяет задать нам смещение в EBO (или передать сам массив с индексами, но при использовании EBO так не делают), поэтому мы указываем просто 0.
+		*/
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	}
+
+	virtual void SetupVerticies() override {
+		/*
+		* GL_STATIC_DRAW: данные либо никогда не будут изменяться, либо будут изменяться очень редко;
+		  GL_DYNAMIC_DRAW: данные будут меняться довольно часто;
+		  GL_STREAM_DRAW: данные будут меняться при каждой отрисовке.
+		*/
+		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
+
+		glGenBuffers(1, &EBO);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(quadIndicies), quadIndicies, GL_STATIC_DRAW);
+	}
+};
+
+static class SetupTriangleVertices : public SetupVertices {
+protected:
+	const GLfloat triangleVertices[9] = {
+		// 1st vertex
+		-0.5f, -0.5f, 0.0f,
+		// 2nd vertex
+		0.5f, -0.5f, 0.0f,
+		// 3rd vertex
+		0.0f, 0.5f, 0.0f
+	};
+public:
+	virtual void SetupVerticies() override {
+		/*
+		* GL_STATIC_DRAW: данные либо никогда не будут изменяться, либо будут изменяться очень редко;
+		  GL_DYNAMIC_DRAW: данные будут меняться довольно часто;
+		  GL_STREAM_DRAW: данные будут меняться при каждой отрисовке.
+		*/
+		glBufferData(GL_ARRAY_BUFFER, sizeof(triangleVertices), triangleVertices, GL_STATIC_DRAW);
+	}
+
+	virtual void DrawShape() override {
+		/*
+		* GL_TRIANGLES - draw triangle
+		* 0 - starting vertices index
+		* 3 - vertices count
+		*/
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+	}
+};
+
 
 GLuint CreateVertexShader14() {
 	// Create shader handle
@@ -90,10 +163,11 @@ GLuint CreateShaderProgram14(GLuint vertexShaderHandle, GLuint fragmentShaderHan
 	return shaderProgram;
 }
 
-static GLuint VAO;
-static GLuint shaderProgram;
 
-void SetupVerticesData() {
+static GLuint shaderProgram;
+static SetupVertices* setupVertices = new SetupQuadVertices();
+
+static void SetupVerticesData() {
 	/**
 	* Vertex Array Object
 
@@ -106,23 +180,20 @@ void SetupVerticesData() {
 		* VBO ассоциированные с вершинными атрибутами с помощью glVertexAttribPointer
 	*/
 	glGenVertexArrays(1, &VAO);
+	// =================================   Bind Vertex array FIRST =================================
+	glBindVertexArray(VAO);
+
 	/*
 	 * Создаем просто буфер типа ARRAY (с сырыми данными?) и складываем туда вертексы
 	 */
 	GLuint VBO;
 	glGenBuffers(1, &VBO);
 
-	// =================================   Bind Vertex array FIRST =================================
-	glBindVertexArray(VAO);
-
 	// Then...
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	/*
-	* GL_STATIC_DRAW: данные либо никогда не будут изменяться, либо будут изменяться очень редко;
-	  GL_DYNAMIC_DRAW: данные будут меняться довольно часто;
-	  GL_STREAM_DRAW: данные будут меняться при каждой отрисовке.
-	*/
-	glBufferData(GL_ARRAY_BUFFER, sizeof(triangleVertices), triangleVertices, GL_STATIC_DRAW);
+	
+	// В зависимости от фигуры - вызываем отрисовку
+	setupVertices->SetupVerticies();
 
 	// Размечаем память в шейдере
 	/**
@@ -134,13 +205,12 @@ void SetupVerticesData() {
 		Последний параметр имеет тип GLvoid* и поэтому требует такое странное приведение типов. Это смещение начала данных в буфере. У нас буфер не имеет смещения и поэтому мы указываем 0.
 	*/
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+	// Явно Включаем аттрибут
 	glEnableVertexAttribArray(0);
 
 	// THEN UNBIND VERTEX ARRAY CTX
 	glBindVertexArray(0);
 }
-
-
 
 void Lesson14::Begin() {
 	// Создаем шейдеры
@@ -167,11 +237,7 @@ void Lesson14::Update() {
 	glUseProgram(shaderProgram);
 
 	glBindVertexArray(VAO);
-	/*
-	* GL_TRIANGLES - draw triangle
-	* 0 - starting vertices index
-	* 3 - vertices count
-	*/
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	
+	setupVertices->DrawShape();
 	glBindVertexArray(0);
 }
