@@ -1,11 +1,12 @@
 #include "Common.h"
-#include "HelloTextures16.h"
+#include "Hellomatrices17.h"
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
 
+	/*
 	if (key == GLFW_KEY_UP && action == GLFW_REPEAT) {
 		Lesson16::IncreaseMixAlpha();
 	}
@@ -13,6 +14,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	if (key == GLFW_KEY_DOWN && action == GLFW_REPEAT) {
 		Lesson16::DecreaseMixAlpha();
 	}
+	*/
 }
 
 
@@ -73,7 +75,7 @@ int main() {
 
 	glfwSetKeyCallback(window, key_callback); // bind close key
 
-	Lesson16::Begin();
+	Lesson17::Begin();
 
 	while(!glfwWindowShouldClose(window))
 	{
@@ -83,7 +85,7 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// команды отрисовки здесь
-		Lesson16::Update();
+		Lesson17::Update();
 
 		glfwSwapBuffers(window);
 	}

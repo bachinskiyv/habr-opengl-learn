@@ -25,6 +25,9 @@
     <Filter Include="Файлы ресурсов\Shaders\16">
       <UniqueIdentifier>{48881f26-ab1c-4c80-b400-2bb4083f9a7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы ресурсов\Shaders\17">
+      <UniqueIdentifier>{4886baac-6a13-47d3-97d4-89a5860df25e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -43,6 +46,12 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="MaterialWithMesh.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Hellomatrices17.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemProhjections18.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,6 +77,12 @@
     <ClInclude Include="MaterialWithMesh.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Hellomatrices17.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemProhjections18.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="habr-opengl-learn1.rc">
@@ -90,6 +105,9 @@
     </None>
     <None Include="shader-16-fragmentTexQuadMix.glsl">
       <Filter>Файлы ресурсов\Shaders\16</Filter>
+    </None>
+    <None Include="shader-1.7-vertexWithMatrix.glsl">
+      <Filter>Файлы ресурсов\Shaders\17</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
