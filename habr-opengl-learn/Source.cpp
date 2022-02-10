@@ -1,20 +1,11 @@
-#include "Common.h"
-#include "Hellomatrices17.h"
+#include "SystemProhjections18.h"
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
 
-	/*
-	if (key == GLFW_KEY_UP && action == GLFW_REPEAT) {
-		Lesson16::IncreaseMixAlpha();
-	}
-
-	if (key == GLFW_KEY_DOWN && action == GLFW_REPEAT) {
-		Lesson16::DecreaseMixAlpha();
-	}
-	*/
+	Lesson18::KeyCallback(key);
 }
 
 
@@ -65,6 +56,8 @@ int main() {
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);	
 	glViewport(0, 0, width, height);
+	// Тест глубины
+	glEnable(GL_DEPTH_TEST);
 
 	/*
 	За кулисами OpenGL использует данные, переданные через glViewport для преобразования 2D координат 
@@ -75,17 +68,17 @@ int main() {
 
 	glfwSetKeyCallback(window, key_callback); // bind close key
 
-	Lesson17::Begin();
+	Lesson18::Begin();
 
 	while(!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
 
 		glClearColor(.2f, .3f, .3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// команды отрисовки здесь
-		Lesson17::Update();
+		Lesson18::Update();
 
 		glfwSwapBuffers(window);
 	}

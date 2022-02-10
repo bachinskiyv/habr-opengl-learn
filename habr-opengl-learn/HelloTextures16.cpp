@@ -1,5 +1,4 @@
 #include "HelloTextures16.h"
-#include "soil.h"
 #include "MaterialWithMesh.h"
 
 
@@ -27,7 +26,7 @@ public:
         LoadShaderImpl("shader-16-vertexTexQuad.glsl", "shader-16-fragmentTexQuadMix.glsl");
     }
 
-   virtual void SetupVerticies() {
+   virtual void FillVerticesBuffers() {
        /*
         * GL_STATIC_DRAW: данные либо никогда не будут изменяться, либо будут изменяться очень редко;
           GL_DYNAMIC_DRAW: данные будут меняться довольно часто;
@@ -181,7 +180,7 @@ static void SetupVerticesData() {
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
     // В зависимости от фигуры - вызываем отрисовку
-    materialWithMeshObject->SetupVerticies();
+    materialWithMeshObject->FillVerticesBuffers();
 
     // Размечаем память в шейдере
     /**
@@ -235,14 +234,14 @@ static const GLfloat ALPHA_STEP = 0.02f;
 static GLfloat CurrentAlpha = 0.2f;
 
 
-void Lesson16::IncreaseMixAlpha() {
+static void IncreaseMixAlpha() {
     CurrentAlpha += ALPHA_STEP;
     if (CurrentAlpha > 1.0f) {
         CurrentAlpha = 1.0f;
     }
 }
 
-void Lesson16::DecreaseMixAlpha() {
+static void DecreaseMixAlpha() {
     CurrentAlpha -= ALPHA_STEP;
     if (CurrentAlpha < 0.0f) {
         CurrentAlpha = 0.0f;
@@ -280,4 +279,13 @@ void Lesson16::Update() {
     glBindVertexArray(VAO);
     materialWithMeshObject->DrawShape();
     glBindVertexArray(0);
+}
+
+void Lesson16::KeyCallback(int key) {
+    if (key == GLFW_KEY_UP) {
+        IncreaseMixAlpha();
+    }
+    else if (key == GLFW_KEY_DOWN) {
+        DecreaseMixAlpha();
+    }
 }

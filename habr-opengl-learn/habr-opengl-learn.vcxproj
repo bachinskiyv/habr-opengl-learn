@@ -168,6 +168,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="shader-1.7-vertexWithMatrix.glsl" />
+    <None Include="shader-1.8-fragment3DCube.glsl" />
+    <None Include="shader-1.8-vertexProjections.glsl" />
+    <None Include="shader-1.8-vertexProjections3DCube.glsl" />
     <None Include="shader-16-fragmentTexQuad.glsl" />
     <None Include="shader-16-fragmentTexQuadMix.glsl" />
     <None Include="shader-16-vertexTexQuad.glsl" />

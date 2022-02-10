@@ -12,7 +12,5 @@ uniform float alpha;
 
 void main()
 {
-    vec2 SecondTexCoord = TexCoord;
-    SecondTexCoord.y = 1.0 - SecondTexCoord.y;
-    color = mix(texture(ourTexture1, TexCoord), texture(ourTexture2, SecondTexCoord), clamp(alpha, 0.0, 1.0));
+    color = mix(texture(ourTexture1, TexCoord), texture(ourTexture2, vec2(TexCoord.x, 1.0 - TexCoord.y)), clamp(alpha, 0.0, 1.0));
 }

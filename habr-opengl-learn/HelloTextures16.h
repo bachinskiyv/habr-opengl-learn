@@ -7,8 +7,6 @@ namespace Lesson16 {
 
 	void Update();
 
-	void IncreaseMixAlpha();
-
-	void DecreaseMixAlpha();
+	void KeyCallback(int key);
 }
 

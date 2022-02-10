@@ -19,7 +19,9 @@ public:
 		return "";
 	}
 
-	virtual void SetupVerticies() = 0;
+	virtual void SetupVerticesData() {};
+
+	virtual void FillVerticesBuffers() = 0;
 
 	virtual void LoadShader() = 0;
 

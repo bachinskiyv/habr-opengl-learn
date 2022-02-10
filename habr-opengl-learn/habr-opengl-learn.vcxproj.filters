@@ -28,6 +28,9 @@
     <Filter Include="Файлы ресурсов\Shaders\17">
       <UniqueIdentifier>{4886baac-6a13-47d3-97d4-89a5860df25e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы ресурсов\Shaders\18">
+      <UniqueIdentifier>{233599e6-caa1-4d10-9ebb-5d67bae6d043}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -108,6 +111,15 @@
     </None>
     <None Include="shader-1.7-vertexWithMatrix.glsl">
       <Filter>Файлы ресурсов\Shaders\17</Filter>
+    </None>
+    <None Include="shader-1.8-vertexProjections.glsl">
+      <Filter>Файлы ресурсов\Shaders\18</Filter>
+    </None>
+    <None Include="shader-1.8-vertexProjections3DCube.glsl">
+      <Filter>Файлы ресурсов\Shaders\18</Filter>
+    </None>
+    <None Include="shader-1.8-fragment3DCube.glsl">
+      <Filter>Файлы ресурсов\Shaders\18</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

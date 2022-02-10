@@ -20,7 +20,7 @@ static GLuint EBO;
 static class SetupVertices {
 public:
 	virtual void DrawShape() = 0;
-	virtual void SetupVerticies() = 0;
+	virtual void FillVerticesBuffers() = 0;
 };
 
 static class SetupQuadVertices : public SetupVertices {
@@ -49,7 +49,7 @@ public:
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	}
 
-	virtual void SetupVerticies() override {
+	virtual void FillVerticesBuffers() override {
 		/*
 		* GL_STATIC_DRAW: данные либо никогда не будут изменяться, либо будут изменяться очень редко;
 		  GL_DYNAMIC_DRAW: данные будут меняться довольно часто;
@@ -75,7 +75,7 @@ protected:
 		0.0f, 0.5f, 0.0f
 	};
 public:
-	virtual void SetupVerticies() override {
+	virtual void FillVerticesBuffers() override {
 		/*
 		* GL_STATIC_DRAW: данные либо никогда не будут изменяться, либо будут изменяться очень редко;
 		  GL_DYNAMIC_DRAW: данные будут меняться довольно часто;
@@ -193,7 +193,7 @@ static void SetupVerticesData() {
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	
 	// В зависимости от фигуры - вызываем отрисовку
-	setupVertices->SetupVerticies();
+	setupVertices->FillVerticesBuffers();
 
 	// Размечаем память в шейдере
 	/**

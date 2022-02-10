@@ -3,9 +3,8 @@
 
 static GLuint VAO;
 static GLuint EBO;
-static GLuint texture;
 
-static class TriangleWithTexMaterial : public MaterialWithMesh {
+class TriangleWithTexMaterialNoStaticClass : public MaterialWithMesh {
 protected:
     const std::vector<GLfloat> vertices = {
         // Позиции          // Цвета             // Текстурные координаты
@@ -25,7 +24,7 @@ public:
         LoadShaderImpl("shader-1.7-vertexWithMatrix.glsl", "shader-16-fragmentTexQuadMix.glsl");
     }
 
-    virtual void SetupVerticies() {
+    virtual void FillVerticesBuffers() {
         /*
          * GL_STATIC_DRAW: данные либо никогда не будут изменяться, либо будут изменяться очень редко;
            GL_DYNAMIC_DRAW: данные будут меняться довольно часто;
@@ -50,7 +49,7 @@ public:
     }
 };
 
-static TriangleWithTexMaterial* materialWithMeshObject = new TriangleWithTexMaterial();
+static TriangleWithTexMaterialNoStaticClass* materialWithMeshObject = new TriangleWithTexMaterialNoStaticClass();
 
 
 static GLuint texture1;
@@ -129,7 +128,7 @@ static void SetupVerticesData() {
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
     // В зависимости от фигуры - вызываем отрисовку
-    materialWithMeshObject->SetupVerticies();
+    materialWithMeshObject->FillVerticesBuffers();
 
     // Размечаем память в шейдере
     /**
