@@ -142,6 +142,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="HelloCamera19.cpp" />
     <ClCompile Include="Hellomatrices17.cpp" />
     <ClCompile Include="HelloShaders15.cpp" />
     <ClCompile Include="HelloTextures16.cpp" />
@@ -152,7 +154,9 @@
     <ClCompile Include="SystemProhjections18.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Common.h" />
+    <ClInclude Include="HelloCamera19.h" />
     <ClInclude Include="Hellomatrices17.h" />
     <ClInclude Include="HelloShaders15.h" />
     <ClInclude Include="HelloTextures16.h" />

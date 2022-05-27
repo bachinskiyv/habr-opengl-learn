@@ -1,11 +1,18 @@
-#include "SystemProhjections18.h"
+#include "HelloCamera19.h"
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
+	Lesson19::KeyCallback(key, action);
+}
 
-	Lesson18::KeyCallback(key);
+void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+	Lesson19::UpdateMousePosition(xpos, ypos);
+}
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
+	Lesson19::UpdateScrollOffset(xoffset, yoffset);
 }
 
 
@@ -67,8 +74,18 @@ int main() {
 	*/
 
 	glfwSetKeyCallback(window, key_callback); // bind close key
+	
 
-	Lesson18::Begin();
+	// Захватываем мышь
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetCursorPosCallback(window, mouse_callback);
+	// Сетим курсор в центр экрана
+	glfwSetCursorPos(window, width / 2, height / 2);
+
+	// Захватываем колесико
+	glfwSetScrollCallback(window, scroll_callback);
+
+	Lesson19::Begin();
 
 	while(!glfwWindowShouldClose(window))
 	{
@@ -78,7 +95,7 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// команды отрисовки здесь
-		Lesson18::Update();
+		Lesson19::Update();
 
 		glfwSwapBuffers(window);
 	}
